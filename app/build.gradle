@@ -4,6 +4,8 @@ apply plugin: 'kotlin-android'
 
 apply plugin: 'kotlin-android-extensions'
 
+apply plugin: "androidx.navigation.safeargs"
+
 android {
     compileSdkVersion 28
     defaultConfig {
@@ -29,16 +31,23 @@ ext {
     junitVersion = '4.12'
     testRunnerVersion = '1.2.0'
     espressoVersion = '3.2.0'
+
+    navigationVersion = '2.1.0-alpha04'
 }
 
 dependencies {
+
     implementation "androidx.core:core-ktx:$androidKtxVersion"
 
     implementation fileTree(dir: 'libs', include: ['*.jar'])
     implementation"org.jetbrains.kotlin:kotlin-stdlib-jdk7:$kotlin_version"
     implementation "androidx.appcompat:appcompat:$appcompatVersion"
 
+    implementation "androidx.navigation:navigation-fragment:$navigationVersion"
+    implementation "androidx.navigation:navigation-ui:$navigationVersion"
+
     testImplementation "junit:junit:$junitVersion"
     androidTestImplementation "androidx.test:runner:$testRunnerVersion"
     androidTestImplementation "androidx.test.espresso:espresso-core:$espressoVersion"
+
 }
