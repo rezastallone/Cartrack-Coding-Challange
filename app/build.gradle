@@ -23,7 +23,12 @@ android {
 }
 
 ext {
-    androidKtxVersion = '1.0.1'
+    androidKtxVersion = '1.0.2'
+    appcompatVersion = '1.0.2'
+
+    junitVersion = '4.12'
+    testRunnerVersion = '1.2.0'
+    espressoVersion = '3.2.0'
 }
 
 dependencies {
@@ -31,11 +36,9 @@ dependencies {
 
     implementation fileTree(dir: 'libs', include: ['*.jar'])
     implementation"org.jetbrains.kotlin:kotlin-stdlib-jdk7:$kotlin_version"
-    implementation 'androidx.appcompat:appcompat:1.0.2'
-    implementation 'androidx.core:core-ktx:1.0.2'
+    implementation "androidx.appcompat:appcompat:$appcompatVersion"
 
-
-    testImplementation 'junit:junit:4.12'
-    androidTestImplementation 'androidx.test:runner:1.2.0'
-    androidTestImplementation 'androidx.test.espresso:espresso-core:3.2.0'
+    testImplementation "junit:junit:$junitVersion"
+    androidTestImplementation "androidx.test:runner:$testRunnerVersion"
+    androidTestImplementation "androidx.test.espresso:espresso-core:$espressoVersion"
 }
