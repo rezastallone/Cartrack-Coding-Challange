@@ -31,7 +31,6 @@
                 android:id="@+id/edittext_username"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:inputType="textPassword"
                 android:hint="@string/hint_type_your_username"
         />
 
@@ -47,7 +46,8 @@
             app:layout_constraintTop_toBottomOf="@+id/textinputlayout_username"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.5" app:layout_constraintBottom_toTopOf="@+id/button_signin">
+            app:layout_constraintHorizontal_bias="0.5"
+            app:layout_constraintBottom_toTopOf="@+id/button_signin">
 
         <com.google.android.material.textfield.TextInputEditText
                 android:id="@+id/edittext_password"
