@@ -61,7 +61,6 @@
             android:id="@+id/textinputlayout_password"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            app:passwordToggleEnabled="true"
             app:passwordToggleTint="@color/colorAccent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintEnd_toEndOf="parent"

@@ -8,6 +8,9 @@
     <string name="title_signup">Signup</string>
     <string name="hint_confirm_password">Confirm password</string>
     <string name="hint_select_country_of_origin">Select country of origin</string>
+    <string name="error_username_empty">Username must not empty</string>
+    <string name="error_password_empty">Password must not be empty</string>
+    <string name="error_password_not_match">Password must match</string>
 
     <string-array name="countries_array">
         <item>Afghanistan</item>
