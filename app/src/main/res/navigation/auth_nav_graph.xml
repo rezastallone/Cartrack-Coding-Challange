@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+            xmlns:app="http://schemas.android.com/apk/res-auto"
+            xmlns:tools="http://schemas.android.com/tools" android:id="@+id/signin_nav_graph"
+            app:startDestination="@id/signInFragment2">
+    <fragment android:id="@+id/signInFragment2"
+              android:name="dev.rezastallone.cartrackchallange.ui.signin.SignInFragment"
+              android:label="SignInFragment">
+        <action android:id="@+id/action_signup_account" app:destination="@id/signupFragment"/>
+    </fragment>
+    <fragment android:id="@+id/signupFragment"
+              android:name="dev.rezastallone.cartrackchallange.ui.signup.SignupFragment"
+              android:label="SignupFragment">
+        <action android:id="@+id/action_signin_account" app:destination="@id/signInFragment2"/>
+    </fragment>
+</navigation>
