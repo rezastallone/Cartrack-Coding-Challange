@@ -9,4 +9,8 @@ import dev.rezastallone.cartrackchallange.data.local.dao.UsersDao
 abstract class AppDatabase : RoomDatabase() {
 
     abstract fun usersDao(): UsersDao
+
+    companion object{
+        const val DATABASE_NAME = "cartrack.db"
+    }
 }
