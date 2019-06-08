@@ -1,13 +1,23 @@
 <?xml version="1.0" encoding="utf-8"?>
 <navigation xmlns:android="http://schemas.android.com/apk/res/android"
             xmlns:app="http://schemas.android.com/apk/res-auto"
-            xmlns:tools="http://schemas.android.com/tools" android:id="@+id/signin_nav_graph"
+            android:id="@+id/auth_nav_graph"
             app:startDestination="@id/signInFragment2">
 
     <fragment android:id="@+id/signInFragment2"
               android:name="dev.rezastallone.cartrackchallange.ui.signin.SignInFragment"
               android:label="SignInFragment">
-        <action android:id="@+id/action_signup_account" app:destination="@id/signupFragment"/>
+
+        <action android:id="@+id/action_signup_account"
+                app:destination="@id/signupFragment"/>
+
+        <action android:id="@+id/action_to_main_fragment"
+                app:destination="@+id/main_nav_graph"
+                app:launchSingleTop="true"
+                app:popUpTo="@+id/auth_nav_graph"
+                app:popUpToInclusive="true"
+        />
+
     </fragment>
 
     <fragment android:id="@+id/signupFragment"
@@ -17,8 +27,9 @@
                 android:id="@+id/action_signin_account"
                 app:destination="@id/signInFragment2"
                 app:launchSingleTop="true"
-                app:popUpTo="@+id/signin_nav_graph"
+                app:popUpTo="@+id/auth_nav_graph"
                 app:popUpToInclusive="true"
         />
     </fragment>
+    <include app:graph="@navigation/main_nav_graph"/>
 </navigation>

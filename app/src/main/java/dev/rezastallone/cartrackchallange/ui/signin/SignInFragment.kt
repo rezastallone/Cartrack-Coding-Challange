@@ -51,8 +51,7 @@ class SignInFragment : Fragment(){
         signinProcessToObserve.observe(viewLifecycleOwner, Observer { signinResult ->
             when ( signinResult ){
                 is Result.Success -> {
-                    showSigninNotLoading()
-                    Toast.makeText(context, "Signin success", Toast.LENGTH_SHORT).show()
+                    onSigninSuccess()
                 }
                 is Result.Loading<*> -> {
                     showSigninLoading()
@@ -77,6 +76,12 @@ class SignInFragment : Fragment(){
                 Toast.makeText(context, R.string.error_unknown_error, Toast.LENGTH_SHORT).show()
             }
         }
+    }
+
+    private fun onSigninSuccess() {
+        showSigninNotLoading()
+        val action = SignInFragmentDirections.actionToMainFragment()
+        findNavController().navigate(action)
     }
 
     private fun showSigninLoading() {
