@@ -11,3 +11,7 @@ fun UsersRepository.insertUserBlocking(user: Users) = kotlinx.coroutines.runBloc
 fun UsersRepository.getUserByIdBlocking(id: Int): Result<Users> = kotlinx.coroutines.runBlocking {
     this@getUserByIdBlocking.getUserById(id)
 }
+
+fun UsersRepository.getUserByUsernameAndPasswordBlocking(username:String, password:String): Result<Users> = kotlinx.coroutines.runBlocking {
+    this@getUserByUsernameAndPasswordBlocking.getUserByUsernameAndPassword(username, password)
+}
