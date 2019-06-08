@@ -11,6 +11,10 @@
     <string name="error_username_empty">Username must not empty</string>
     <string name="error_password_empty">Password must not be empty</string>
     <string name="error_password_not_match">Password must match</string>
+    <string name="success_signup">Success singup new account</string>
+    <string name="error_signup">Error occured when signing up</string>
+    <string name="error_username_already_taken">Username already taken, please use another one</string>
+    <string name="error_unknown_error">Unknown error occured, please contact our support</string>
 
     <string-array name="countries_array">
         <item>Afghanistan</item>

@@ -6,7 +6,9 @@ import dev.rezastallone.cartrackchallange.data.source.UsersRepository
 import dev.rezastallone.cartrackchallange.data.source.local.AppDatabase
 import dev.rezastallone.cartrackchallange.data.source.local.datasource.UsersDataSource
 import dev.rezastallone.cartrackchallange.data.source.local.datasource.UsersLocalDataSource
+import dev.rezastallone.cartrackchallange.ui.signup.SignupViewModel
 import org.koin.android.ext.koin.androidContext
+import org.koin.android.viewmodel.dsl.viewModel
 import org.koin.dsl.module
 
 val appModule = module {
@@ -18,4 +20,5 @@ val appModule = module {
 
     single<UsersDataSource> { UsersLocalDataSource(get()) }
     single<UsersRepository> { DefaultUsersRepository(get())}
+    viewModel { SignupViewModel(get()) }
 }

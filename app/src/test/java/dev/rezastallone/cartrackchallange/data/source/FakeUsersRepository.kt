@@ -9,8 +9,9 @@ class FakeUsersRepository: UsersRepository{
 
     var usersData: LinkedHashMap<Int, Users> = LinkedHashMap()
 
-    override fun insertUser(user: Users) {
+    override fun insertUser(user: Users): Result<Users> {
         usersData[user.id] = user
+        return Result.Success(user)
     }
 
     override fun getUserById(id: Int): Result<Users> {

@@ -7,16 +7,30 @@ import java.lang.Exception
 
 class DefaultUsersRepository(private val usersLocalDataSource: UsersDataSource) : UsersRepository{
 
-    override fun insertUser(user: Users) {
-        usersLocalDataSource.insert(user)
+    override fun insertUser(user: Users): Result<Users> {
+        return try{
+            val insertedID = usersLocalDataSource.insert(user)
+            if ( insertedID > 0 ){
+                user.id = insertedID
+                Result.Success(user)
+            } else {
+                Result.Error(Exception("Error insert user ${user.username}"))
+            }
+        }catch (e:Exception){
+            Result.Error(e)
+        }
     }
 
     override fun getUserById(id: Int): Result<Users> {
-        val user = usersLocalDataSource.getUserById(id)
-        return if ( user != null ){
-            Result.Success(user)
-        } else {
-            Result.Error(Exception("User with id $id not found"))
+        return try{
+            val user = usersLocalDataSource.getUserById(id)
+            if ( user != null ){
+                Result.Success(user)
+            } else {
+                Result.Error(Exception("User with id $id not found"))
+            }
+        }catch (e:Exception){
+            Result.Error(e)
         }
     }
 }

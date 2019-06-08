@@ -8,8 +8,8 @@ import dev.rezastallone.cartrackchallange.data.Users
 
 @Dao
 interface UsersDao {
-    @Insert(onConflict = OnConflictStrategy.REPLACE)
-    fun insert(user: Users)
+    @Insert(onConflict = OnConflictStrategy.ABORT)
+    fun insert(user: Users): Long
 
     @Query("Select * from users where users.id = :id ")
     fun getUserById(id: Int) : Users?

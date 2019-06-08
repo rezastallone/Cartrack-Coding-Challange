@@ -12,8 +12,9 @@ class FakeUsersLocalDataSource : UsersDataSource {
         return usersData[id]
     }
 
-    override fun insert(user: Users) {
+    override fun insert(user: Users): Int {
         usersData[user.id] = user
+        return user.id
     }
 
 }
