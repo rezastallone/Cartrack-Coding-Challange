@@ -4,6 +4,8 @@ import androidx.room.Room
 import androidx.test.core.app.ApplicationProvider
 import androidx.test.ext.junit.runners.AndroidJUnit4
 import com.google.common.truth.Truth
+import dev.rezastallone.cartrackchallange.constant.ERROR_USERNAME_NOT_FOUND
+import dev.rezastallone.cartrackchallange.constant.ERROR_WRONG_PASSWORD
 import dev.rezastallone.cartrackchallange.data.Result
 import dev.rezastallone.cartrackchallange.data.Users
 import dev.rezastallone.cartrackchallange.data.source.local.AppDatabase
@@ -17,7 +19,7 @@ import org.junit.runner.RunWith
 class UsersLocalDataSourceTest{
     private lateinit var localDataSource: UsersLocalDataSource
     private lateinit var database: AppDatabase
-    private val userForTest = Users(1, "user1", "password", "USA")
+    private val userForTest = Users(1, "michael", "password", "USA")
 
     @Before
     fun setup() {
@@ -37,10 +39,46 @@ class UsersLocalDataSourceTest{
     }
 
     @Test
+    fun retrievesUserWithUnregisteredId_notFound() = runBlocking {
+        val userToCheck = localDataSource.getUserById(userForTest.id)
+
+        Truth.assertThat(userToCheck).isNull()
+    }
+
+    @Test
+    fun retrievesUserWithUnregisteredUsername_errorNotFound() = runBlocking {
+        try {
+            val userToCheck = localDataSource.getUserByUsernameAndPassword(userForTest.username, userForTest.password)
+        }catch (e:Exception){
+            Truth.assertThat(e.message).isEqualTo(ERROR_USERNAME_NOT_FOUND)
+        }
+    }
+
+    @Test
+    fun retrievesUserWithWrongPassword_errorWrongPassword() = runBlocking {
+        localDataSource.insert(userForTest)
+        try {
+            val userToCheck = localDataSource.getUserByUsernameAndPassword(userForTest.username, "wrong password")
+        }catch (e:Exception){
+            Truth.assertThat(e.message).isEqualTo(ERROR_WRONG_PASSWORD)
+        }
+    }
+
+    @Test
     fun insertUser_retrievesUser() = runBlocking {
         localDataSource.insert(userForTest)
 
         val userToCheck = localDataSource.getUserById(userForTest.id)
+
+        Truth.assertThat(userToCheck).isNotNull()
+        Truth.assertThat(userToCheck?.id).isEqualTo(userToCheck?.id)
+    }
+
+    @Test
+    fun retrieveUserWithExistingUsernameAndPassword_found() = runBlocking {
+        localDataSource.insert(userForTest)
+
+        val userToCheck = localDataSource.getUserByUsernameAndPassword(userForTest.username, userForTest.password)
 
         Truth.assertThat(userToCheck).isNotNull()
         Truth.assertThat(userToCheck?.id).isEqualTo(userToCheck?.id)

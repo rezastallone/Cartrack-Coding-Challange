@@ -1,5 +1,6 @@
 package dev.rezastallone.cartrackchallange.data.source
 
+import dev.rezastallone.cartrackchallange.constant.ERROR_USER_NOT_FOUND
 import dev.rezastallone.cartrackchallange.data.Result
 import dev.rezastallone.cartrackchallange.data.Users
 import dev.rezastallone.cartrackchallange.data.source.local.datasource.UsersDataSource
@@ -52,7 +53,7 @@ class DefaultUsersRepository(private val usersLocalDataSource: UsersDataSource) 
                 if ( user != null ){
                     Result.Success(user)
                 } else {
-                    Result.Error(Exception("User not found"))
+                    Result.Error(Exception(ERROR_USER_NOT_FOUND))
                 }
             }catch (e:Exception){
                 Result.Error(e)
