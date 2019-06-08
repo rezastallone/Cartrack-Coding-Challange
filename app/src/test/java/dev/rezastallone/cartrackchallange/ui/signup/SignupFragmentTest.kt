@@ -2,6 +2,7 @@ package dev.rezastallone.cartrackchallange.ui.signup
 
 
 import android.os.Bundle
+import androidx.fragment.app.testing.FragmentScenario
 import androidx.fragment.app.testing.launchFragmentInContainer
 import androidx.navigation.NavController
 import androidx.navigation.Navigation
@@ -15,12 +16,20 @@ import androidx.test.espresso.matcher.ViewMatchers
 import androidx.test.ext.junit.runners.AndroidJUnit4
 import dev.rezastallone.cartrackchallange.R
 import dev.rezastallone.cartrackchallange.util.hasTextInputLayoutError
+import org.junit.Before
 import org.junit.Test
 import org.junit.runner.RunWith
 import org.mockito.Mockito
 
 @RunWith(AndroidJUnit4::class)
 class SignupFragmentTest{
+
+    private lateinit var scenario: FragmentScenario<SignupFragment>
+
+    @Before
+    fun setupFragment(){
+        scenario = launchFragmentInContainer<SignupFragment>(Bundle(), R.style.AppTheme)
+    }
 
     @Test
     fun displaySignupForm_OnFragmentDisplay(){
@@ -33,7 +42,6 @@ class SignupFragmentTest{
 
     @Test
     fun clickToSignInTextView_navigateToSignInFragment(){
-        val scenario = launchFragmentInContainer<SignupFragment>(Bundle(), R.style.AppTheme)
         val navController = Mockito.mock(NavController::class.java)
         scenario.onFragment {
             Navigation.setViewNavController(it.view!!, navController)
@@ -48,14 +56,12 @@ class SignupFragmentTest{
 
     @Test
     fun displayError_whenUsernameIsEmpty(){
-        launchFragmentInContainer<SignupFragment>(Bundle(), R.style.AppTheme)
         Espresso.onView(ViewMatchers.withId(R.id.button_signup)).perform(click())
         Espresso.onView(ViewMatchers.withId(R.id.edittext_username)).check(matches(hasTextInputLayoutError()))
     }
 
     @Test
     fun displayError_whenPasswordIsEmpty(){
-        launchFragmentInContainer<SignupFragment>(Bundle(), R.style.AppTheme)
         Espresso.onView(ViewMatchers.withId(R.id.edittext_username)).perform(replaceText("username"))
         Espresso.onView(ViewMatchers.withId(R.id.button_signup)).perform(click())
         Espresso.onView(ViewMatchers.withId(R.id.edittext_password)).check(matches(hasTextInputLayoutError()))
@@ -63,7 +69,6 @@ class SignupFragmentTest{
 
     @Test
     fun displayError_whenPasswordNotMatch(){
-        launchFragmentInContainer<SignupFragment>(Bundle(), R.style.AppTheme)
         Espresso.onView(ViewMatchers.withId(R.id.edittext_username)).perform(replaceText("username"))
         Espresso.onView(ViewMatchers.withId(R.id.edittext_password)).perform(replaceText("password"))
         Espresso.onView(ViewMatchers.withId(R.id.button_signup)).perform(click())

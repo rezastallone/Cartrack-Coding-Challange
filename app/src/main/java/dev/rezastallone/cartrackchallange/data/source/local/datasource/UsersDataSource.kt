@@ -4,4 +4,5 @@ import dev.rezastallone.cartrackchallange.data.Users
 
 interface UsersDataSource {
     fun insert(user:Users)
+    fun getUserById(id: Int) : Users?
 }

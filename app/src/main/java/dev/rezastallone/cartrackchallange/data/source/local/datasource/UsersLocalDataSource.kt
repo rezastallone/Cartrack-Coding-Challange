@@ -7,4 +7,8 @@ class UsersLocalDataSource(private val db: AppDatabase): UsersDataSource{
     override fun insert(user: Users) {
         db.usersDao().insert(user)
     }
+
+    override fun getUserById(id: Int): Users? {
+        return db.usersDao().getUserById(id)
+    }
 }
