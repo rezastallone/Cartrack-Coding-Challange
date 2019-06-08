@@ -44,4 +44,19 @@ class DefaultUsersRepository(private val usersLocalDataSource: UsersDataSource) 
             }
         }
     }
+
+    override suspend fun getUserByUsernameAndPassword(username: String, password: String): Result<Users> {
+        return withContext(Dispatchers.IO){
+            try{
+                val user = usersLocalDataSource.getUserByUsernameAndPassword(username, password)
+                if ( user != null ){
+                    Result.Success(user)
+                } else {
+                    Result.Error(Exception("User not found"))
+                }
+            }catch (e:Exception){
+                Result.Error(e)
+            }
+        }
+    }
 }

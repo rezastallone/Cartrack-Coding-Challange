@@ -6,6 +6,7 @@ import dev.rezastallone.cartrackchallange.data.source.UsersRepository
 import dev.rezastallone.cartrackchallange.data.source.local.AppDatabase
 import dev.rezastallone.cartrackchallange.data.source.local.datasource.UsersDataSource
 import dev.rezastallone.cartrackchallange.data.source.local.datasource.UsersLocalDataSource
+import dev.rezastallone.cartrackchallange.ui.signin.SigninViewModel
 import dev.rezastallone.cartrackchallange.ui.signup.SignupViewModel
 import org.koin.android.ext.koin.androidContext
 import org.koin.android.viewmodel.dsl.viewModel
@@ -22,5 +23,6 @@ val appModule by lazy  {
         single<UsersDataSource> { UsersLocalDataSource(get()) }
         single<UsersRepository> { DefaultUsersRepository(get())}
         viewModel { SignupViewModel(get()) }
+        viewModel { SigninViewModel(get()) }
     }
 }

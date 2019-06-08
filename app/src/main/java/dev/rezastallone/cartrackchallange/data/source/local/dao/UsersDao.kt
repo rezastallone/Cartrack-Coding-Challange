@@ -13,4 +13,7 @@ interface UsersDao {
 
     @Query("Select * from users where users.id = :id ")
     fun getUserById(id: Int) : Users?
+
+    @Query("Select * from users where username = :username ")
+    fun getUserByUsername(username: String): Users?
 }
