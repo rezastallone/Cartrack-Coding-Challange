@@ -3,6 +3,7 @@ package dev.rezastallone.cartrackchallange.data.source
 import com.google.common.truth.Truth
 import dev.rezastallone.cartrackchallange.data.Result
 import dev.rezastallone.cartrackchallange.data.Users
+import kotlinx.coroutines.runBlocking
 import org.junit.Before
 import org.junit.Test
 
@@ -20,7 +21,7 @@ class DefaultUsersRepositoryTest {
     }
 
     @Test
-    fun insertUser_userExistOnGetById() {
+    fun insertUser_userExistOnGetById() = runBlocking {
         usersRepository.insertUser(userForTest)
 
         val getUserResult = usersRepository.getUserById(userForTest.id)
@@ -29,7 +30,7 @@ class DefaultUsersRepositoryTest {
     }
 
     @Test
-    fun getUser_returnErrorIfNotFound(){
+    fun getUser_returnErrorIfNotFound() = runBlocking {
         val getUserResult = usersRepository.getUserById(userForTest.id)
         Truth.assertThat(getUserResult is Result.Error).isTrue()
     }

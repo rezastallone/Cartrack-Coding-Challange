@@ -2,6 +2,7 @@ package dev.rezastallone.cartrackchallange.ui.signup
 
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
+import androidx.lifecycle.viewModelScope
 import dev.rezastallone.cartrackchallange.data.Result
 import dev.rezastallone.cartrackchallange.data.Result.Loading
 import dev.rezastallone.cartrackchallange.data.Users
@@ -12,17 +13,14 @@ import kotlinx.coroutines.SupervisorJob
 import kotlinx.coroutines.launch
 import kotlin.coroutines.CoroutineContext
 
-class SignupViewModel(private val usersRepository: UsersRepository) : ViewModel(), CoroutineScope{
+class SignupViewModel(private val usersRepository: UsersRepository) : ViewModel(){
 
-    private lateinit var insertUserLiveData : MutableLiveData<Result<Users>>
-    private val parentJob = SupervisorJob()
-    override val coroutineContext: CoroutineContext
-        get() = CoroutineScope(Dispatchers.IO + parentJob).coroutineContext
+    lateinit var insertUserLiveData: MutableLiveData<Result<Users>>
 
-    fun insertUser(user:Users): MutableLiveData<Result<Users>> {
+    fun insertUser(user: Users): MutableLiveData<Result<Users>> {
         insertUserLiveData = MutableLiveData()
         insertUserLiveData.postValue(Loading(user))
-        launch {
+        viewModelScope.launch {
             val insertionResult = usersRepository.insertUser(user)
             insertUserLiveData.postValue(insertionResult)
         }

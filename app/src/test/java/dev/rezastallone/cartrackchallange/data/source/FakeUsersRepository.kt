@@ -9,12 +9,18 @@ class FakeUsersRepository: UsersRepository{
 
     var usersData: LinkedHashMap<Int, Users> = LinkedHashMap()
 
-    override fun insertUser(user: Users): Result<Users> {
-        usersData[user.id] = user
-        return Result.Success(user)
+    override suspend fun insertUser(user: Users): Result<Users> {
+        return if (userExist(user)){
+            Result.Error(Exception("User already exist"))
+        } else {
+            usersData[user.id] = user
+            Result.Success(user)
+        }
     }
 
-    override fun getUserById(id: Int): Result<Users> {
+    private fun userExist(user: Users) = usersData[user.id] != null
+
+    override suspend fun getUserById(id: Int): Result<Users> {
         val user = usersData[id]
         return if ( user != null ){
             Result.Success(user)

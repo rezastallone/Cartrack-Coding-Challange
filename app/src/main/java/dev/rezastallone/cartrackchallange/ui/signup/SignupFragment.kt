@@ -72,6 +72,7 @@ class SignupFragment : Fragment() {
         if (isErrorUsernameTaken(messageToCheck)) {
             edittext_username.error = getString(R.string.error_username_already_taken)
         } else {
+            exception.printStackTrace()
             Toast.makeText(context,R.string.error_unknown_error, Toast.LENGTH_SHORT).show()
         }
     }
