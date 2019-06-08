@@ -8,18 +8,35 @@ import androidx.navigation.NavController
 import androidx.navigation.Navigation
 import androidx.test.espresso.Espresso
 import androidx.test.espresso.Espresso.*
+import androidx.test.espresso.IdlingRegistry
 import androidx.test.espresso.action.ViewActions
 import androidx.test.espresso.action.ViewActions.click
 import androidx.test.espresso.action.ViewActions.replaceText
 import androidx.test.espresso.assertion.ViewAssertions
 import androidx.test.espresso.assertion.ViewAssertions.matches
 import androidx.test.espresso.matcher.ViewMatchers
+import androidx.test.espresso.matcher.ViewMatchers.isDisplayed
+import androidx.test.espresso.matcher.ViewMatchers.withText
 import androidx.test.ext.junit.runners.AndroidJUnit4
 import dev.rezastallone.cartrackchallange.R
+import dev.rezastallone.cartrackchallange.data.Result
+import dev.rezastallone.cartrackchallange.data.Users
+import dev.rezastallone.cartrackchallange.data.source.FakeUsersRepository
+import dev.rezastallone.cartrackchallange.data.source.UsersRepository
+import dev.rezastallone.cartrackchallange.injection.appModule
+import dev.rezastallone.cartrackchallange.util.EspressoIdlingResource
+import dev.rezastallone.cartrackchallange.util.getUserByIdBlocking
 import dev.rezastallone.cartrackchallange.util.hasTextInputLayoutError
+import dev.rezastallone.cartrackchallange.util.insertUserBlocking
+import org.hamcrest.Matchers.not
+import org.junit.After
+import org.junit.Assert
 import org.junit.Before
 import org.junit.Test
 import org.junit.runner.RunWith
+import org.koin.android.ext.koin.androidContext
+import org.koin.android.ext.koin.androidLogger
+import org.koin.core.context.startKoin
 import org.koin.core.context.stopKoin
 import org.mockito.Mockito
 
@@ -27,12 +44,21 @@ import org.mockito.Mockito
 class SignupFragmentTest{
 
     private lateinit var scenario: FragmentScenario<SignupFragment>
+    private lateinit var repository: UsersRepository
 
     @Before
     fun setupFragment(){
-        stopKoin()
+        IdlingRegistry.getInstance().register(EspressoIdlingResource.countingIdlingResource)
+        repository = FakeUsersRepository()
         scenario = launchFragmentInContainer<SignupFragment>(Bundle(), R.style.AppTheme)
     }
+
+    @After
+    fun cleanup(){
+        IdlingRegistry.getInstance().unregister(EspressoIdlingResource.countingIdlingResource)
+        stopKoin()
+    }
+
 
     @Test
     fun displaySignupForm_OnFragmentDisplay(){

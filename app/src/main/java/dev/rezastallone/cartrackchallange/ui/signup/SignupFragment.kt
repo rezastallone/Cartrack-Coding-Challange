@@ -13,6 +13,7 @@ import androidx.navigation.fragment.findNavController
 import dev.rezastallone.cartrackchallange.R
 import dev.rezastallone.cartrackchallange.data.Result
 import dev.rezastallone.cartrackchallange.data.Users
+import dev.rezastallone.cartrackchallange.util.EspressoIdlingResource
 import kotlinx.android.synthetic.main.signup_fragment.*
 import org.koin.android.viewmodel.ext.android.viewModel
 
@@ -82,7 +83,7 @@ class SignupFragment : Fragment() {
     private fun onSignupSuccess() {
         onSignupStopLoading()
         Toast.makeText(context, R.string.success_signup, Toast.LENGTH_SHORT).show()
-        findNavController().popBackStack()
+        navigateToSignin()
     }
 
     private fun onSignupStopLoading() {
