@@ -1,11 +1,11 @@
 package dev.rezastallone.cartrackchallange.data.source
 
 import com.google.common.truth.Truth
+import dev.rezastallone.cartrackchallange.FakeUsersLocalDataSource
 import dev.rezastallone.cartrackchallange.constant.ERROR_USERNAME_NOT_FOUND
 import dev.rezastallone.cartrackchallange.constant.ERROR_WRONG_PASSWORD
 import dev.rezastallone.cartrackchallange.data.Result
 import dev.rezastallone.cartrackchallange.data.Users
-import dev.rezastallone.cartrackchallange.data.source.local.datasource.FakeUsersLocalDataSource
 import kotlinx.coroutines.runBlocking
 import org.junit.Before
 import org.junit.Test
