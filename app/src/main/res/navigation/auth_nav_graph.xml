@@ -9,14 +9,17 @@
               android:label="SignInFragment">
 
         <action android:id="@+id/action_signup_account"
-                app:destination="@id/signupFragment"/>
+                app:destination="@id/signupFragment" app:enterAnim="@anim/nav_default_enter_anim"
+                app:exitAnim="@anim/nav_default_exit_anim" app:popEnterAnim="@anim/nav_default_pop_enter_anim"
+                app:popExitAnim="@anim/nav_default_pop_exit_anim"/>
 
         <action android:id="@+id/action_to_main_fragment"
                 app:destination="@+id/main_nav_graph"
                 app:launchSingleTop="true"
                 app:popUpTo="@+id/auth_nav_graph"
                 app:popUpToInclusive="true"
-        />
+                app:enterAnim="@anim/nav_default_enter_anim" app:exitAnim="@anim/nav_default_exit_anim"
+                app:popEnterAnim="@anim/nav_default_pop_enter_anim" app:popExitAnim="@anim/nav_default_pop_exit_anim"/>
 
     </fragment>
 
@@ -29,7 +32,8 @@
                 app:launchSingleTop="true"
                 app:popUpTo="@+id/auth_nav_graph"
                 app:popUpToInclusive="true"
-        />
+                app:enterAnim="@anim/nav_default_enter_anim" app:exitAnim="@anim/nav_default_exit_anim"
+                app:popEnterAnim="@anim/nav_default_pop_enter_anim" app:popExitAnim="@anim/nav_default_pop_exit_anim"/>
     </fragment>
     <include app:graph="@navigation/main_nav_graph"/>
 </navigation>
