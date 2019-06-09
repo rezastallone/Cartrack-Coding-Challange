@@ -4,6 +4,8 @@ import androidx.room.Room
 import dev.rezastallone.cartrackchallange.data.source.DefaultUsersRepository
 import dev.rezastallone.cartrackchallange.data.source.UsersRepository
 import dev.rezastallone.cartrackchallange.data.source.local.AppDatabase
+import dev.rezastallone.cartrackchallange.data.source.local.datasource.ContactsDataSource
+import dev.rezastallone.cartrackchallange.data.source.local.datasource.ContactsLocalDataSource
 import dev.rezastallone.cartrackchallange.data.source.local.datasource.UsersDataSource
 import dev.rezastallone.cartrackchallange.data.source.local.datasource.UsersLocalDataSource
 import dev.rezastallone.cartrackchallange.ui.signin.SigninViewModel
@@ -21,6 +23,7 @@ val appModule by lazy  {
         }
 
         single<UsersDataSource> { UsersLocalDataSource(get()) }
+        single<ContactsDataSource> { ContactsLocalDataSource(get()) }
         single<UsersRepository> { DefaultUsersRepository(get())}
         viewModel { SignupViewModel(get()) }
         viewModel { SigninViewModel(get()) }
