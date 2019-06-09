@@ -38,14 +38,14 @@ class UsersLocalDataSourceTest{
     }
 
     @Test
-    fun retrievesUserWithUnregisteredId_notFound() = runBlocking {
+    fun getUnregisteredUserAndNotFound() = runBlocking {
         val userToCheck = localDataSource.getUserById(userForTest.id)
 
         Truth.assertThat(userToCheck).isNull()
     }
 
     @Test
-    fun retrievesUserWithUnregisteredUsername_errorNotFound() = runBlocking {
+    fun getUnregisteredUsernameAndErrorNotFound() = runBlocking {
         try {
             val userToCheck = localDataSource.getUserByUsernameAndPassword(userForTest.username, userForTest.password)
         }catch (e:Exception){
@@ -54,7 +54,7 @@ class UsersLocalDataSourceTest{
     }
 
     @Test
-    fun retrievesUserWithWrongPassword_errorWrongPassword() = runBlocking {
+    fun getUserWithWrongPasswordAndErrorWrongPassword() = runBlocking {
         localDataSource.insert(userForTest)
         try {
             val userToCheck = localDataSource.getUserByUsernameAndPassword(userForTest.username, "wrong password")
@@ -64,7 +64,7 @@ class UsersLocalDataSourceTest{
     }
 
     @Test
-    fun insertUser_retrievesUser() = runBlocking {
+    fun insertUserAndGetUser() = runBlocking {
         localDataSource.insert(userForTest)
 
         val userToCheck = localDataSource.getUserById(userForTest.id)
@@ -74,7 +74,7 @@ class UsersLocalDataSourceTest{
     }
 
     @Test
-    fun retrieveUserWithExistingUsernameAndPassword_found() = runBlocking {
+    fun getUserWithCorrectUsernameAndPasswordAndFound() = runBlocking {
         localDataSource.insert(userForTest)
 
         val userToCheck = localDataSource.getUserByUsernameAndPassword(userForTest.username, userForTest.password)

@@ -15,7 +15,7 @@ import androidx.test.espresso.assertion.ViewAssertions.matches
 import androidx.test.espresso.matcher.ViewMatchers
 import androidx.test.ext.junit.runners.AndroidJUnit4
 import dev.rezastallone.cartrackchallange.R
-import dev.rezastallone.cartrackchallange.data.source.FakeUsersRepository
+import dev.rezastallone.cartrackchallange.FakeUsersRepository
 import dev.rezastallone.cartrackchallange.data.source.UsersRepository
 import dev.rezastallone.cartrackchallange.util.hasTextInputLayoutError
 import org.junit.Before

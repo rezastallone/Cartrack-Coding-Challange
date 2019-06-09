@@ -4,19 +4,14 @@ import androidx.arch.core.executor.testing.InstantTaskExecutorRule
 import com.google.common.truth.Truth
 import dev.rezastallone.cartrackchallange.data.Result
 import dev.rezastallone.cartrackchallange.data.Users
-import dev.rezastallone.cartrackchallange.data.source.FakeUsersRepository
+import dev.rezastallone.cartrackchallange.FakeUsersRepository
 import dev.rezastallone.cartrackchallange.util.LiveDataTestUtil
 import dev.rezastallone.cartrackchallange.util.ViewModelScopeMainDispatcherRule
-import kotlinx.coroutines.CoroutineDispatcher
-import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.test.TestCoroutineContext
-import kotlinx.coroutines.test.setMain
-import org.junit.Assert.*
 import org.junit.Before
 import org.junit.Rule
 import org.junit.Test
-import kotlin.coroutines.ContinuationInterceptor
 
 class SignupViewModelTest{
     // Subject under test

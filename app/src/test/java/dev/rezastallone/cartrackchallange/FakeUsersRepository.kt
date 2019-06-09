@@ -1,13 +1,14 @@
-package dev.rezastallone.cartrackchallange.data.source
+package dev.rezastallone.cartrackchallange
 
 import dev.rezastallone.cartrackchallange.constant.ERROR_USERNAME_NOT_FOUND
 import dev.rezastallone.cartrackchallange.constant.ERROR_WRONG_PASSWORD
 import dev.rezastallone.cartrackchallange.data.Result
 import dev.rezastallone.cartrackchallange.data.Users
+import dev.rezastallone.cartrackchallange.data.source.UsersRepository
 import java.lang.Exception
 import java.util.LinkedHashMap
 
-class FakeUsersRepository: UsersRepository{
+class FakeUsersRepository: UsersRepository {
 
     var usersData: LinkedHashMap<Int, Users> = LinkedHashMap()
 
