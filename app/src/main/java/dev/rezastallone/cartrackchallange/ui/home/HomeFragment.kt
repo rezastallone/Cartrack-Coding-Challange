@@ -7,6 +7,7 @@ import android.view.ViewGroup
 import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
+import androidx.navigation.fragment.FragmentNavigatorExtras
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.DividerItemDecoration
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -17,13 +18,14 @@ import dev.rezastallone.cartrackchallange.constant.EXTRA_CONTACT
 import dev.rezastallone.cartrackchallange.data.Contact
 import dev.rezastallone.cartrackchallange.ui.contact.ContactDetailFragment
 import kotlinx.android.synthetic.main.contact_list.*
+import kotlinx.android.synthetic.main.contact_list_item.view.*
 import org.koin.android.viewmodel.ext.android.viewModel
 
 
 class HomeFragment : Fragment() {
 
     private lateinit var contactAdapter: ContactListAdapter
-    val homeViewModel: HomeViewModel by viewModel()
+    private val homeViewModel: HomeViewModel by viewModel()
 
     /**
      * Whether or not the activity is in two-pane mode, i.e. running on a tablet
@@ -61,24 +63,37 @@ class HomeFragment : Fragment() {
     private fun setupAdapter() {
         contactAdapter = ContactListAdapter(
             object : ContactListInteraction {
-                override fun openDetail(contact: Contact) {
-                    openContactDetail(contact)
+                override fun openDetail(
+                    contact: Contact,
+                    itemView: View
+                ) {
+                    openContactDetail(contact, itemView)
                 }
             }
         )
     }
 
-    private fun openContactDetail(contact: Contact) {
+    private fun openContactDetail(contact: Contact, itemView: View) {
         if (twoPane) {
             openContactDetailInTwoPane(contact)
         } else {
-            navigateToContactDetail(contact)
+            navigateToContactDetail(contact, itemView)
         }
     }
 
-    private fun navigateToContactDetail(contact: Contact) {
+    private fun navigateToContactDetail(
+        contact: Contact,
+        itemView: View
+    ) {
+        val extras = FragmentNavigatorExtras(
+            itemView.textview_name to "name",
+            itemView.textview_username to "username",
+            itemView.textview_email to "email",
+            itemView.textview_phone to "phone",
+            itemView.textview_address to "address"
+        )
         val action = HomeFragmentDirections.actionToContactDetail(contact)
-        findNavController().navigate(action)
+        findNavController().navigate(action, extras)
     }
 
     private fun openContactDetailInTwoPane(contact: Contact) {

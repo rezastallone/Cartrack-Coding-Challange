@@ -11,7 +11,7 @@ class ContactListAdapter(private val interaction: ContactListInteraction) : Page
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ContactViewHolder {
         return ContactViewHolder(
             LayoutInflater.from(parent.context).inflate(
-                R.layout.item_contact,
+                R.layout.contact_list_item,
                 parent,
                 false
             )

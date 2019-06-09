@@ -46,6 +46,7 @@
         />
 
         <TextView
+                android:transitionName="name"
                 android:id="@+id/textview_name"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
@@ -66,6 +67,7 @@
         />
 
         <TextView
+                android:transitionName="username"
                 android:id="@+id/textview_username"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
@@ -86,6 +88,7 @@
         />
 
         <TextView
+                android:transitionName="email"
                 android:id="@+id/textview_email"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
@@ -106,6 +109,7 @@
         />
 
         <TextView
+                android:transitionName="phone"
                 android:id="@+id/textview_phone"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"

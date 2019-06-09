@@ -9,7 +9,7 @@ import com.google.android.gms.maps.OnMapReadyCallback
 import com.google.android.gms.maps.model.LatLng
 import com.google.android.gms.maps.model.MarkerOptions
 import dev.rezastallone.cartrackchallange.data.Contact
-import kotlinx.android.synthetic.main.item_contact.view.*
+import kotlinx.android.synthetic.main.contact_list_item.view.*
 
 class ContactViewHolder(view: View) : RecyclerView.ViewHolder(view), OnMapReadyCallback {
 
@@ -50,7 +50,7 @@ class ContactViewHolder(view: View) : RecyclerView.ViewHolder(view), OnMapReadyC
 
     private fun setupClick(contact: Contact, interaction: ContactListInteraction){
         itemView.setOnClickListener {
-            interaction.openDetail(contact)
+            interaction.openDetail(contact, itemView)
         }
     }
 

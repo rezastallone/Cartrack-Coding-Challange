@@ -4,7 +4,9 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.Fragment
+import androidx.transition.TransitionInflater
 import com.google.android.gms.maps.CameraUpdateFactory
 import com.google.android.gms.maps.GoogleMap
 import com.google.android.gms.maps.OnMapReadyCallback
@@ -29,7 +31,12 @@ class ContactDetailFragment : Fragment(), OnMapReadyCallback {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+        overrideTransitionAnimation()
         getContactExtra()
+    }
+
+    private fun overrideTransitionAnimation() {
+        sharedElementEnterTransition = TransitionInflater.from(context).inflateTransition(android.R.transition.move)
     }
 
     private fun getContactExtra() {
@@ -52,6 +59,15 @@ class ContactDetailFragment : Fragment(), OnMapReadyCallback {
         setupMap()
         setupContactInfo()
         setupContactAddress()
+        SetupToolbar()
+    }
+
+    private fun SetupToolbar() {
+        (activity as AppCompatActivity).supportActionBar?.let {
+            it.title = contact.name
+            it.setDisplayHomeAsUpEnabled(true)
+            it.setDisplayShowHomeEnabled(true)
+        }
     }
 
     private fun setupContactAddress() {
@@ -64,13 +80,14 @@ class ContactDetailFragment : Fragment(), OnMapReadyCallback {
             textview_username.text = username
             textview_email.text = email
             textview_phone.text = phone
+            textview_website.text = website
             textview_company_name.text = company.name
             textview_company_catchphrase.text = company.catchPhrase
             textview_company_bs.text = company.bs
         }
     }
 
-    private fun setupMap(){
+    private fun setupMap() {
         val mapFragment = childFragmentManager
             .findFragmentById(R.id.map) as SupportMapFragment
         mapFragment.getMapAsync(this)
