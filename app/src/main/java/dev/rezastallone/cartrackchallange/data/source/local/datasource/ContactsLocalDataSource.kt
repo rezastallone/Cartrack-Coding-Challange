@@ -5,8 +5,12 @@ import dev.rezastallone.cartrackchallange.data.source.local.AppDatabase
 
 class ContactsLocalDataSource(db: AppDatabase) : ContactsDataSource {
     private val contactDao = db.contactsDao()
-    override fun getContacts(): List<Contact> {
-        return contactDao.getContacts()
+
+    override fun getContacts(offset: Int, limit: Int): MutableList<Contact> {
+        return contactDao.getContacts(limit, offset)
     }
 
+    override fun insertContact(data: List<Contact>) {
+        return contactDao.insert(data)
+    }
 }

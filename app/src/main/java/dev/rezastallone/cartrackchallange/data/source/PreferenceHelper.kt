@@ -1,5 +1,6 @@
 package dev.rezastallone.cartrackchallange.data.source
 
+import android.content.ContentResolver
 import android.content.Context
 import android.content.SharedPreferences
 import android.provider.Settings.Global.getString
@@ -22,5 +23,18 @@ object PreferenceHelper {
     fun getString(key: String, defaultValue: String, context: Context): String {
         val sharedPref = getSharedPreference(context)
         return sharedPref.getString(key, defaultValue)
+    }
+
+    fun putInt(key: String, valueToPut: Int, context: Context){
+        val sharedPref = getSharedPreference(context)
+        with (sharedPref.edit()) {
+            putInt(key, valueToPut)
+            commit()
+        }
+    }
+
+    fun getIntPreference(key: String, defaultValue: Int, context: Context): Int {
+        val sharedPref = getSharedPreference(context)
+        return sharedPref.getInt(key, defaultValue)
     }
 }
