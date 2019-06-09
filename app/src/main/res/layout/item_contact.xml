@@ -1,11 +1,120 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-                android:layout_width="match_parent"
-                android:layout_height="400dp">
+<androidx.constraintlayout.widget.ConstraintLayout
+        xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:app="http://schemas.android.com/apk/res-auto"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content" xmlns:map="http://schemas.android.com/tools"
+        android:padding="@dimen/medium_padding_size"
+>
 
-    <TextView
-            android:text="TextView"
+    <androidx.constraintlayout.widget.Guideline
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:id="@+id/textView_username"/>
-</RelativeLayout>
+            android:id="@+id/guideline_contact"
+            app:layout_constraintGuide_percent="0.4"
+            android:orientation="vertical"
+    />
+
+    <TextView
+            android:id="@+id/textview_label_name"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toStartOf="@+id/guideline_contact"
+            app:layout_constraintTop_toTopOf="parent"
+            android:text="@string/label_name"
+    />
+
+    <TextView
+            android:id="@+id/textview_name"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toEndOf="@+id/guideline_contact"
+            app:layout_constraintTop_toBottomOf="@+id/textview_title_contact_info"
+
+    />
+
+    <TextView
+            android:id="@+id/textview_label_username"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toStartOf="@+id/guideline_contact"
+            app:layout_constraintTop_toBottomOf="@+id/textview_name"
+            android:text="@string/label_username"
+    />
+
+    <TextView
+            android:id="@+id/textview_username"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toEndOf="@+id/guideline_contact"
+            app:layout_constraintTop_toBottomOf="@+id/textview_name"
+
+    />
+
+    <TextView
+            android:id="@+id/textview_label_email"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toStartOf="@+id/guideline_contact"
+            app:layout_constraintTop_toBottomOf="@+id/textview_username"
+            android:text="@string/label_email"
+    />
+
+    <TextView
+            android:id="@+id/textview_email"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toEndOf="@+id/guideline_contact"
+            app:layout_constraintTop_toBottomOf="@+id/textview_username"
+
+    />
+
+    <TextView
+            android:id="@+id/textview_label_phone"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toStartOf="@+id/guideline_contact"
+            app:layout_constraintTop_toBottomOf="@+id/textview_email"
+            android:text="@string/label_phone"
+    />
+
+    <TextView
+            android:id="@+id/textview_phone"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toEndOf="@+id/guideline_contact"
+            app:layout_constraintTop_toBottomOf="@+id/textview_email"
+    />
+
+    <TextView
+            android:id="@+id/textview_address"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/textview_phone"
+            style="@style/textAddressStyle"
+    />
+
+    <com.google.android.gms.maps.MapView
+            android:id="@+id/mapview_contact"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/lite_map_height"
+            app:layout_constraintTop_toBottomOf="@+id/textview_address"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            map:liteMode="true"
+            map:mapType="none"
+            android:layout_marginTop="@dimen/medium_padding_size"
+    />
+
+
+</androidx.constraintlayout.widget.ConstraintLayout>

@@ -8,4 +8,5 @@
     <dimen name="text_margin">16dp</dimen>
     <dimen name="map_height">300dp</dimen>
     <dimen name="card_corner_radius">8dp</dimen>
+    <dimen name="lite_map_height">200dp</dimen>
 </resources>
