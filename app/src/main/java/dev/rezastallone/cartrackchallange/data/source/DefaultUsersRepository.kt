@@ -12,6 +12,7 @@ import java.lang.Exception
 class DefaultUsersRepository(private val usersLocalDataSource: UsersDataSource) : UsersRepository{
 
     override suspend fun insertUser(user: Users): Result<Users> {
+        EspressoIdlingResource.increment()
         val result = withContext(Dispatchers.IO){
             try{
                 val insertedID = usersLocalDataSource.insert(user)
@@ -28,6 +29,7 @@ class DefaultUsersRepository(private val usersLocalDataSource: UsersDataSource) 
                 Result.Error(e)
             }
         }
+        EspressoIdlingResource.decrement()
         return result
     }
 
@@ -47,7 +49,8 @@ class DefaultUsersRepository(private val usersLocalDataSource: UsersDataSource) 
     }
 
     override suspend fun getUserByUsernameAndPassword(username: String, password: String): Result<Users> {
-        return withContext(Dispatchers.IO){
+        EspressoIdlingResource.increment()
+        val result = withContext(Dispatchers.IO){
             try{
                 val user = usersLocalDataSource.getUserByUsernameAndPassword(username, password)
                 if ( user != null ){
@@ -59,5 +62,7 @@ class DefaultUsersRepository(private val usersLocalDataSource: UsersDataSource) 
                 Result.Error(e)
             }
         }
+        EspressoIdlingResource.decrement()
+        return result
     }
 }
