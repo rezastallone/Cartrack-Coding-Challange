@@ -4,7 +4,7 @@ import androidx.room.Room
 import androidx.test.core.app.ApplicationProvider
 import androidx.test.ext.junit.runners.AndroidJUnit4
 import com.google.common.truth.Truth
-import dev.rezastallone.cartrackchallange.data.source.contactForTest
+import dev.rezastallone.cartrackchallange.contactForTest
 import dev.rezastallone.cartrackchallange.data.source.local.AppDatabase
 import org.junit.After
 import org.junit.Before

@@ -41,7 +41,7 @@ class SignupViewModelTest{
     }
 
     @Test
-    fun insertNewUser_insertedSuccesfully(){
+    fun whenInsertUserAndGetThenFound(){
         signupViewModel.insertUser(userForTest)
 
         testContext.triggerActions()
@@ -52,7 +52,7 @@ class SignupViewModelTest{
     }
 
     @Test
-    fun insertAlreadyExistingUser_showError(){
+    fun whenInsertAlreadyExistThenError(){
         signupViewModel.insertUser(userForTest)
         testContext.triggerActions()
         signupViewModel.insertUser(userForTest)
@@ -64,7 +64,7 @@ class SignupViewModelTest{
     }
 
     @Test
-    fun onInsertUser_showLoading(){
+    fun whenInsertUserShowLoading(){
         signupViewModel.insertUser(userForTest)
 
         val insertUserResult = LiveDataTestUtil.getValue(signupViewModel.insertUserLiveData)

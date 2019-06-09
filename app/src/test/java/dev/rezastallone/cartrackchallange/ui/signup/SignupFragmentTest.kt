@@ -37,7 +37,7 @@ class SignupFragmentTest{
 
 
     @Test
-    fun displaySignupForm_OnFragmentDisplay(){
+    fun whenInSignupFragmentThenShowForms(){
         onView(ViewMatchers.withId(R.id.button_signup)).check(ViewAssertions.matches(ViewMatchers.isDisplayed()))
         onView(ViewMatchers.withId(R.id.edittext_password)).check(ViewAssertions.matches(ViewMatchers.isDisplayed()))
         onView(ViewMatchers.withId(R.id.edittext_password_confirm)).check(ViewAssertions.matches(ViewMatchers.isDisplayed()))
@@ -45,7 +45,7 @@ class SignupFragmentTest{
     }
 
     @Test
-    fun clickToSignInTextView_navigateToSignInFragment(){
+    fun whenClickToSigninTextThenNavigateToSignin(){
         val navController = Mockito.mock(NavController::class.java)
         scenario.onFragment {
             Navigation.setViewNavController(it.view!!, navController)
@@ -59,20 +59,20 @@ class SignupFragmentTest{
     }
 
     @Test
-    fun displayError_whenUsernameIsEmpty(){
+    fun whenSignupUsernameEmptyThenError(){
         onView(ViewMatchers.withId(R.id.button_signup)).perform(click())
         onView(ViewMatchers.withId(R.id.edittext_username)).check(matches(hasTextInputLayoutError()))
     }
 
     @Test
-    fun displayError_whenPasswordIsEmpty(){
+    fun whenSignupPasswordEmptyThenError(){
         onView(ViewMatchers.withId(R.id.edittext_username)).perform(replaceText("username"))
         onView(ViewMatchers.withId(R.id.button_signup)).perform(click())
         onView(ViewMatchers.withId(R.id.edittext_password)).check(matches(hasTextInputLayoutError()))
     }
 
     @Test
-    fun displayError_whenPasswordNotMatch(){
+    fun whenSignupPasswordNotMatchThenError(){
         onView(ViewMatchers.withId(R.id.edittext_username)).perform(replaceText("username"))
         onView(ViewMatchers.withId(R.id.edittext_password)).perform(replaceText("password"))
         onView(ViewMatchers.withId(R.id.edittext_password_confirm)).perform(replaceText("notpassword"))

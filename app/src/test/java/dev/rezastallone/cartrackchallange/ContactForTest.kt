@@ -1,4 +1,4 @@
-package dev.rezastallone.cartrackchallange.data.source
+package dev.rezastallone.cartrackchallange
 
 import dev.rezastallone.cartrackchallange.data.Address
 import dev.rezastallone.cartrackchallange.data.Company

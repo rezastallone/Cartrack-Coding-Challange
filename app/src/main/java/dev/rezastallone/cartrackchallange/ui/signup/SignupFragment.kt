@@ -34,7 +34,9 @@ class SignupFragment : Fragment() {
     }
 
     private fun setupToolbar() {
-        (activity as AppCompatActivity).supportActionBar!!.title = getString(R.string.title_signup)
+        (activity as? AppCompatActivity)?.let {
+            it.supportActionBar!!.title = getString(R.string.title_signup)
+        }
     }
 
     private fun setupSignUpButton() {

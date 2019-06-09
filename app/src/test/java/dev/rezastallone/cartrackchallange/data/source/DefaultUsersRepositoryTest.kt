@@ -24,7 +24,7 @@ class DefaultUsersRepositoryTest {
     }
 
     @Test
-    fun insertUser_userExistOnGetById() = runBlocking {
+    fun whenInsertUserAndGetThenFound() = runBlocking {
         usersRepository.insertUser(userForTest)
 
         val getUserResult = usersRepository.getUserById(userForTest.id)
@@ -33,7 +33,7 @@ class DefaultUsersRepositoryTest {
     }
 
     @Test
-    fun getExistingUserWithUsernameAndPassword_found() = runBlocking {
+    fun whenGetUserWithCorrectUsernameAndPasswordThenFound() = runBlocking {
         usersRepository.insertUser(userForTest)
 
         val getUserResult = usersRepository.getUserByUsernameAndPassword(userForTest.username, userForTest.password)
@@ -42,7 +42,7 @@ class DefaultUsersRepositoryTest {
     }
 
     @Test
-    fun getExistingUserWithWrongPassword_resultErrorWrongPassword() = runBlocking {
+    fun whenGetUserWrongPasswordThenErrorWrongPassword() = runBlocking {
         usersRepository.insertUser(userForTest)
 
         val getUserResult = usersRepository.getUserByUsernameAndPassword(userForTest.username, "Wrong password")
@@ -50,13 +50,13 @@ class DefaultUsersRepositoryTest {
     }
 
     @Test
-    fun getNotExistUserWithUsername_resultErrorUserNotExist() = runBlocking {
+    fun whenGetUnregisteredUsernameThenNotFound() = runBlocking {
         val getUserResult = usersRepository.getUserByUsernameAndPassword("name", userForTest.password)
         Truth.assertThat((getUserResult as Result.Error).exception.message).isEqualTo(ERROR_USERNAME_NOT_FOUND)
     }
 
     @Test
-    fun getUser_returnErrorIfNotFound() = runBlocking {
+    fun getUnregisteredUserThenErrorNotFound() = runBlocking {
         val getUserResult = usersRepository.getUserById(userForTest.id)
         Truth.assertThat(getUserResult is Result.Error).isTrue()
     }
