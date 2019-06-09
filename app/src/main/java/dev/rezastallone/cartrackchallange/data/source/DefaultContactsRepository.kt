@@ -1,5 +1,6 @@
 package dev.rezastallone.cartrackchallange.data.source
 
+import android.util.Log
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.Transformations
 import androidx.paging.LivePagedListBuilder
@@ -27,6 +28,7 @@ class DefaultContactsRepository(
         return PagedListInteractor<Contact>(
             pagedList = personalThreadLiveData,
             refresh = {
+                Log.d("REFRESH", "REFRESH")
                 sourceFactory.sourceLiveData.value?.refresh()
             },
             refreshState = Transformations.switchMap(sourceFactory.sourceLiveData) {

@@ -7,4 +7,7 @@ class HomeViewModel(contactsRepository: ContactsRepository) :ViewModel(){
 
     val contactInteractor = contactsRepository.loadContacts()
 
+    fun refresh() {
+        contactInteractor.refresh()
+    }
 }

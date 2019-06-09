@@ -16,9 +16,11 @@ import dev.rezastallone.cartrackchallange.R
 import dev.rezastallone.cartrackchallange.R.layout
 import dev.rezastallone.cartrackchallange.constant.EXTRA_CONTACT
 import dev.rezastallone.cartrackchallange.data.Contact
+import dev.rezastallone.cartrackchallange.data.Result
 import dev.rezastallone.cartrackchallange.ui.contact.ContactDetailFragment
 import kotlinx.android.synthetic.main.contact_list.*
 import kotlinx.android.synthetic.main.contact_list_item.view.*
+import kotlinx.android.synthetic.main.home_fragment.*
 import org.koin.android.viewmodel.ext.android.viewModel
 
 
@@ -44,6 +46,22 @@ class HomeFragment : Fragment() {
         setupAdapter()
         setupContactList()
         observeContactList()
+        observerContactLoadingState()
+        setupPullRefresh()
+    }
+
+    private fun observerContactLoadingState() {
+        homeViewModel.contactInteractor.refreshState.observe(viewLifecycleOwner, Observer { loadingResult ->
+            when ( loadingResult ){
+                is Result.Success, is Result.Error -> swipelayout_contact_list.isRefreshing = false
+            }
+        })
+    }
+
+    private fun setupPullRefresh() {
+        swipelayout_contact_list.setOnRefreshListener {
+            homeViewModel.refresh()
+        }
     }
 
     private fun configureClientUseTablet() {
@@ -56,8 +74,23 @@ class HomeFragment : Fragment() {
 
     private fun observeContactList() {
         homeViewModel.contactInteractor.pagedList.observe(viewLifecycleOwner, Observer { contactPagedList ->
-            contactAdapter.submitList(contactPagedList)
+            if (  contactPagedList.isEmpty() ) {
+                showContactEmpty()
+            } else {
+                showContactNotEmpty()
+                contactAdapter.submitList(contactPagedList)
+            }
         })
+    }
+
+    private fun showContactEmpty() {
+        textview_title_empty_contacts.visibility = View.VISIBLE
+        frameLayout.visibility = View.GONE
+    }
+
+    private fun showContactNotEmpty() {
+        textview_title_empty_contacts.visibility = View.GONE
+        frameLayout.visibility = View.VISIBLE
     }
 
     private fun setupAdapter() {
