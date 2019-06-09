@@ -13,7 +13,6 @@ import androidx.navigation.fragment.findNavController
 import dev.rezastallone.cartrackchallange.R
 import dev.rezastallone.cartrackchallange.data.Result
 import dev.rezastallone.cartrackchallange.data.Users
-import dev.rezastallone.cartrackchallange.util.EspressoIdlingResource
 import kotlinx.android.synthetic.main.signup_fragment.*
 import org.koin.android.viewmodel.ext.android.viewModel
 
