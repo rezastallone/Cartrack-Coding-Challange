@@ -13,14 +13,37 @@ import androidx.navigation.fragment.findNavController
 import dev.rezastallone.cartrackchallange.R
 import dev.rezastallone.cartrackchallange.constant.ERROR_USERNAME_NOT_FOUND
 import dev.rezastallone.cartrackchallange.constant.ERROR_WRONG_PASSWORD
+import dev.rezastallone.cartrackchallange.constant.PREF_SIGNEDIN_USERNAME
 import dev.rezastallone.cartrackchallange.data.Result
 import dev.rezastallone.cartrackchallange.data.Users
+import dev.rezastallone.cartrackchallange.data.source.PreferenceHelper
 import kotlinx.android.synthetic.main.signin_fragment.*
 import org.koin.android.viewmodel.ext.android.viewModel
 
 class SignInFragment : Fragment(){
 
     private val signinViewModel: SigninViewModel by viewModel()
+
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+        checkSignedinUser()
+    }
+
+    private fun checkSignedinUser() {
+        if ( isUserSignedInExist() ){
+            navigateToHome()
+        }
+    }
+
+    /***
+     * Not puting shared preference in view model to avoid exposing view model to android context
+     * and avoid leaking it
+     */
+
+    private fun isUserSignedInExist(): Boolean {
+        val context = context
+        return context != null && PreferenceHelper.getString(PREF_SIGNEDIN_USERNAME, "", context).isNotEmpty()
+    }
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         return inflater.inflate(R.layout.signin_fragment, container, false)
@@ -51,7 +74,7 @@ class SignInFragment : Fragment(){
         signinProcessToObserve.observe(viewLifecycleOwner, Observer { signinResult ->
             when ( signinResult ){
                 is Result.Success -> {
-                    onSigninSuccess()
+                    onSigninSuccess(signinResult.data)
                 }
                 is Result.Loading<*> -> {
                     showSigninLoading()
@@ -78,8 +101,22 @@ class SignInFragment : Fragment(){
         }
     }
 
-    private fun onSigninSuccess() {
+    private fun onSigninSuccess(signedinUser: Users) {
         showSigninNotLoading()
+        saveSignedinUser(signedinUser)
+        navigateToHome()
+    }
+
+    /***
+     * Saving username not perfomed in view model because it expose view model to android context
+     * and may leak it
+     */
+
+    private fun saveSignedinUser(signedinUser: Users) {
+        context?.let { PreferenceHelper.putString(PREF_SIGNEDIN_USERNAME, signedinUser.username, it) }
+    }
+
+    private fun navigateToHome() {
         val action = SignInFragmentDirections.actionToMainFragment()
         findNavController().navigate(action)
     }

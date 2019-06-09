@@ -48,7 +48,7 @@ class UsersLocalDataSourceTest{
     @Test
     fun retrievesUserWithUnregisteredUsername_errorNotFound() = runBlocking {
         try {
-            val userToCheck = localDataSource.getUserByUsernameAndPassword(userForTest.username, userForTest.password)
+            localDataSource.getUserByUsernameAndPassword(userForTest.username, userForTest.password)
         }catch (e:Exception){
             Truth.assertThat(e.message).isEqualTo(ERROR_USERNAME_NOT_FOUND)
         }
@@ -58,7 +58,7 @@ class UsersLocalDataSourceTest{
     fun retrievesUserWithWrongPassword_errorWrongPassword() = runBlocking {
         localDataSource.insert(userForTest)
         try {
-            val userToCheck = localDataSource.getUserByUsernameAndPassword(userForTest.username, "wrong password")
+            localDataSource.getUserByUsernameAndPassword(userForTest.username, "wrong password")
         }catch (e:Exception){
             Truth.assertThat(e.message).isEqualTo(ERROR_WRONG_PASSWORD)
         }
