@@ -5,7 +5,7 @@
     <string name="hint_password">Password</string>
     <string name="hint_to_signup">Dont have account ? sign up here</string>
     <string name="hint_to_signin">Already have an account ? signin here</string>
-    <string name="title_signup">Signup</string>
+    <string name="title_signup">Sign up</string>
     <string name="hint_confirm_password">Confirm password</string>
     <string name="hint_select_country_of_origin">Select country of origin</string>
     <string name="error_username_empty">Username must not empty</string>
@@ -17,6 +17,7 @@
     <string name="error_unknown_error">Unknown error occured, please contact our support</string>
     <string name="error_entered_wrong_password">You have entered wrong password</string>
     <string name="error_username_not_registered">User with such username is not registered</string>
+    <string name="title_home">Home</string>
 
     <string-array name="countries_array">
         <item>Afghanistan</item>

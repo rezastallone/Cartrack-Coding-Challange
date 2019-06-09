@@ -6,6 +6,7 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.ArrayAdapter
 import android.widget.Toast
+import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.Observer
@@ -29,6 +30,11 @@ class SignupFragment : Fragment() {
         setupToSigninNavigation()
         setupCountryListSpinner()
         setupSignUpButton()
+        setupToolbar()
+    }
+
+    private fun setupToolbar() {
+        (activity as AppCompatActivity).supportActionBar!!.title = getString(R.string.title_signup)
     }
 
     private fun setupSignUpButton() {
