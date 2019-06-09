@@ -22,8 +22,7 @@ abstract class BasePagingFactory<LocalType : Any, RemoteType>(val limit: Int, ta
 
     val tag = tag.replace("/","")
     val context: Context by inject()
-    val networkState = MutableLiveData<Result<List<LocalType>>>()
-    val initialLoad = MutableLiveData<Result<List<LocalType>>>()
+    val initialLoad = MutableLiveData<Result<Any>>()
 
     private fun getValidLocalOffset(): Int {
         return PreferenceHelper.getIntPreference("$tag$VALID_LOCAL_OFFSET",0,context)
@@ -40,7 +39,7 @@ abstract class BasePagingFactory<LocalType : Any, RemoteType>(val limit: Int, ta
     override fun loadInitial(initialParams: LoadInitialParams<Int>, callback: LoadInitialCallback<Int, LocalType>) {
         initialLoad.postValue(Result.Loading(Any()))
         load(0, limit) { result, newOffset ->
-            initialLoad.postValue(Result.Success(result))
+            initialLoad.postValue(Result.Success(Any()))
             callback.onResult(result, 0, newOffset)
         }
     }
@@ -63,7 +62,6 @@ abstract class BasePagingFactory<LocalType : Any, RemoteType>(val limit: Int, ta
                 getDataFromLocal(offset, limit)
             }
         }
-
         onSuccess(result, offset + result.size)
     }
 
@@ -71,7 +69,6 @@ abstract class BasePagingFactory<LocalType : Any, RemoteType>(val limit: Int, ta
         offset: Int,
         limit: Int
     ): MutableList<LocalType> {
-        networkState.postValue(Result.Loading(Any()))
         val response = getDataFromRemote(offset, limit).await()
         val body = response.body()
         return if (response.isSuccessful) {
@@ -83,11 +80,9 @@ abstract class BasePagingFactory<LocalType : Any, RemoteType>(val limit: Int, ta
             } else {
                 getDataFromLocal(offset, limit)
             }
-            networkState.postValue(Result.Success(data))
             data
         } else {
             response.errorBody()?.let {
-                networkState.postValue(Result.Error(Exception(it.string())))
             }
             getDataFromLocal(offset, limit)
         }

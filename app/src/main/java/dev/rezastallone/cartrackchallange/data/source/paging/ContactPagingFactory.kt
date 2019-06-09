@@ -10,7 +10,7 @@ import kotlinx.coroutines.Deferred
 import retrofit2.Response
 import source.paging.BasePagingFactory
 
-class PersonalThreadDataSourceFactory(
+class ContactPagingFactory(
     val remote: RemoteClient,
     val dataSource: ContactsDataSource
 ) : DataSource.Factory<Int, Contact>() {
