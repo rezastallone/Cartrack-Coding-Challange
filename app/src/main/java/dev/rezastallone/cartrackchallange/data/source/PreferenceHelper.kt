@@ -1,6 +1,5 @@
 package dev.rezastallone.cartrackchallange.data.source
 
-import android.content.ContentResolver
 import android.content.Context
 import android.content.SharedPreferences
 import android.provider.Settings.Global.getString

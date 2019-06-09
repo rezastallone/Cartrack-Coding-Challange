@@ -15,12 +15,17 @@ import org.koin.core.inject
 import retrofit2.Response
 import kotlin.coroutines.CoroutineContext
 
+/***
+ * Base paging factory for producing paging factory for any data
+ * fetch local data, if not exist fetch remote data
+ */
+
 abstract class BasePagingFactory<LocalType : Any, RemoteType>(val limit: Int, tag: String) :
     PageKeyedDataSource<Int, LocalType>(),
     KoinComponent,
     CoroutineScope {
 
-    val tag = tag.replace("/","")
+    private val tag = tag.replace("/","")
     val context: Context by inject()
     val initialLoad = MutableLiveData<Result<Any>>()
 

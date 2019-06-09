@@ -120,7 +120,6 @@ class SignupFragment : Fragment() {
             edittext_password_confirm.error = getString(R.string.error_password_not_match)
             return false
         }
-
         return true
     }
 

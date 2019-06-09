@@ -38,21 +38,19 @@ class HomeFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         setupToolbar()
-        configurePaneForContactDetail()
+        configureClientUseTablet()
         setupAdapter()
         setupContactList()
         observeContactList()
     }
 
-    private fun configurePaneForContactDetail() {
-        if (contact_detail_container != null) {
-            // The detail container view will be present only in the
-            // large-screen layouts (res/values-w900dp).
-            // If this view is present, then the
-            // activity should be in two-pane mode.
+    private fun configureClientUseTablet() {
+        if (clientInTablet()) {
             twoPane = true
         }
     }
+
+    private fun clientInTablet() = contact_detail_container != null
 
     private fun observeContactList() {
         homeViewModel.contactInteractor.pagedList.observe(viewLifecycleOwner, Observer { contactPagedList ->
@@ -72,19 +70,27 @@ class HomeFragment : Fragment() {
 
     private fun openContactDetail(contact: Contact) {
         if (twoPane) {
-            val fragment = ContactDetailFragment().apply {
-                arguments = Bundle().apply {
-                    putParcelable(EXTRA_CONTACT, contact)
-                }
-            }
-            childFragmentManager
-                .beginTransaction()
-                .replace(R.id.contact_detail_container, fragment)
-                .commit()
+            openContactDetailInTwoPane(contact)
         } else {
-            val action = HomeFragmentDirections.actionToContactDetail(contact)
-            findNavController().navigate(action)
+            navigateToContactDetail(contact)
         }
+    }
+
+    private fun navigateToContactDetail(contact: Contact) {
+        val action = HomeFragmentDirections.actionToContactDetail(contact)
+        findNavController().navigate(action)
+    }
+
+    private fun openContactDetailInTwoPane(contact: Contact) {
+        val fragment = ContactDetailFragment().apply {
+            arguments = Bundle().apply {
+                putParcelable(EXTRA_CONTACT, contact)
+            }
+        }
+        childFragmentManager
+            .beginTransaction()
+            .replace(R.id.contact_detail_container, fragment)
+            .commit()
     }
 
     private fun setupContactList() {

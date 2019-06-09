@@ -12,6 +12,21 @@ import java.util.concurrent.TimeUnit
 
 object RemoteService {
     fun getRemoteService(gson: Gson): RemoteClient {
+        val client = buildOkHttpClient()
+        val retrofit = buildRetrofit(gson, client)
+        return retrofit.create(RemoteClient::class.java)
+    }
+
+    private fun buildRetrofit(gson: Gson, client: OkHttpClient): Retrofit {
+        return Retrofit.Builder()
+            .baseUrl(BASE_URL)
+            .addConverterFactory(GsonConverterFactory.create(gson))
+            .addCallAdapterFactory(CoroutineCallAdapterFactory())
+            .client(client)
+            .build()
+    }
+
+    private fun buildOkHttpClient(): OkHttpClient {
 
         var connectionTimeOut: Long = 30
         var writeTimeOut: Long = 30
@@ -25,27 +40,15 @@ object RemoteService {
 
         val maxRequestPerHost = 500
 
-        val endpoint = BASE_URL
         val dispatcher = Dispatcher()
         dispatcher.maxRequestsPerHost = maxRequestPerHost
 
-        // http client
-        val client = OkHttpClient.Builder()
+        return OkHttpClient.Builder()
             .connectTimeout(connectionTimeOut, TimeUnit.SECONDS)
             .writeTimeout(writeTimeOut, TimeUnit.SECONDS)
             .readTimeout(readTimeOut, TimeUnit.SECONDS)
             .dispatcher(dispatcher)
             .retryOnConnectionFailure(true)
             .build()
-
-        // retrofit client
-        val retrofit = Retrofit.Builder()
-            .baseUrl(endpoint)
-            .addConverterFactory(GsonConverterFactory.create(gson))
-            .addCallAdapterFactory(CoroutineCallAdapterFactory())
-            .client(client)
-            .build()
-
-        return retrofit.create(RemoteClient::class.java)
     }
 }

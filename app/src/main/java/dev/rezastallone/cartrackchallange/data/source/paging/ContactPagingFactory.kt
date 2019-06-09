@@ -5,7 +5,6 @@ import androidx.paging.DataSource
 import dev.rezastallone.cartrackchallange.data.Contact
 import dev.rezastallone.cartrackchallange.data.source.local.datasource.ContactsDataSource
 import dev.rezastallone.cartrackchallange.data.source.remote.RemoteClient
-import dev.rezastallone.cartrackchallange.data.source.remote.RemoteService
 import kotlinx.coroutines.Deferred
 import retrofit2.Response
 import source.paging.BasePagingFactory
@@ -19,7 +18,7 @@ class ContactPagingFactory(
 
     override fun create(): DataSource<Int, Contact> {
         val source =
-            object : BasePagingFactory<Contact, List<Contact>>(30, "userlist") {
+            object : BasePagingFactory<Contact, List<Contact>>(5, "userlist") {
 
                 override fun remoteToLocaltype(remoteType: List<Contact>): MutableList<Contact> {
                     return remoteType.toMutableList()
