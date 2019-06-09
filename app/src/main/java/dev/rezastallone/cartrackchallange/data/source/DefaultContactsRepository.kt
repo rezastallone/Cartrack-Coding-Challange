@@ -15,7 +15,7 @@ class DefaultContactsRepository(val contactsDataSource: ContactsDataSource, val 
 
     private lateinit var personalDataSource: MutableLiveData<BasePagingFactory<Contact, List<Contact>>>
 
-    fun loadContacts(): PagedListInteractor<Contact> {
+    override fun loadContacts(): PagedListInteractor<Contact> {
         val sourceFactory = ContactPagingFactory(remoteClient, contactsDataSource)
 
         personalDataSource = sourceFactory.sourceLiveData

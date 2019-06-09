@@ -14,6 +14,7 @@ import dev.rezastallone.cartrackchallange.data.source.local.datasource.UsersData
 import dev.rezastallone.cartrackchallange.data.source.local.datasource.UsersLocalDataSource
 import dev.rezastallone.cartrackchallange.data.source.remote.RemoteClient
 import dev.rezastallone.cartrackchallange.data.source.remote.RemoteService
+import dev.rezastallone.cartrackchallange.ui.home.HomeViewModel
 import dev.rezastallone.cartrackchallange.ui.signin.SigninViewModel
 import dev.rezastallone.cartrackchallange.ui.signup.SignupViewModel
 import org.koin.android.ext.koin.androidContext
@@ -44,5 +45,6 @@ val appModule by lazy {
 
         viewModel { SignupViewModel(get()) }
         viewModel { SigninViewModel(get()) }
+        viewModel { HomeViewModel(get()) }
     }
 }
