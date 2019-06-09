@@ -1,8 +1,18 @@
 <?xml version="1.0" encoding="utf-8"?>
 <navigation xmlns:android="http://schemas.android.com/apk/res/android"
             xmlns:app="http://schemas.android.com/apk/res-auto"
-            android:id="@+id/main_nav_graph" app:startDestination="@id/homeFragment2">
+            xmlns:tools="http://schemas.android.com/tools" android:id="@+id/main_nav_graph" app:startDestination="@id/homeFragment2">
 
     <fragment android:id="@+id/homeFragment2" android:name="dev.rezastallone.cartrackchallange.ui.home.HomeFragment"
-              android:label="HomeFragment"/>
+              android:label="HomeFragment">
+        <action android:id="@+id/action_to_contact_detail"
+                app:destination="@id/contactDetailFragment">
+            <argument
+                    android:name="EXTRA_CONTACT"
+                    app:argType="dev.rezastallone.cartrackchallange.data.Contact" />
+        </action>
+    </fragment>
+    <fragment android:id="@+id/contactDetailFragment"
+              android:name="dev.rezastallone.cartrackchallange.ui.contact.ContactDetailFragment"
+              android:label="contact_detail" tools:layout="@layout/contact_detail"/>
 </navigation>

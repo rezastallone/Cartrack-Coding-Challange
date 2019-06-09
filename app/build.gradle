@@ -1,8 +1,12 @@
 apply plugin: 'com.android.application'
 apply plugin: 'kotlin-android'
 apply plugin: 'kotlin-android-extensions'
-apply plugin: "androidx.navigation.safeargs"
 apply plugin: 'kotlin-kapt'
+apply plugin: "androidx.navigation.safeargs"
+
+androidExtensions {
+    experimental = true
+}
 
 android {
     compileSdkVersion 28
@@ -78,6 +82,9 @@ ext {
 dependencies {
 
     implementation "androidx.paging:paging-runtime:$pagingVersion"
+    implementation 'androidx.legacy:legacy-support-v4:1.0.0'
+    implementation 'androidx.recyclerview:recyclerview:1.0.0'
+    implementation 'com.google.android.material:material:1.0.0'
     testImplementation "androidx.paging:paging-common:$pagingVersion"
 
     implementation "com.squareup.retrofit2:retrofit:$retrofitVersion"
@@ -95,7 +102,7 @@ dependencies {
 
     implementation "org.koin:koin-android:$koinVersion"
     implementation "org.koin:koin-android-viewmodel:$koinVersion"
-    androidTestImplementation ("org.koin:koin-test:$koinVersion"){
+    androidTestImplementation("org.koin:koin-test:$koinVersion") {
         exclude group: 'org.mockito'
     }
 

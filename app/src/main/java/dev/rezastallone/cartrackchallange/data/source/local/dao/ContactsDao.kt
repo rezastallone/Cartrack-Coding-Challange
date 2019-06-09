@@ -8,7 +8,7 @@ import dev.rezastallone.cartrackchallange.data.Contact
 
 @Dao
 interface ContactsDao {
-    @Query("Select * From contacts Order By id desc limit :limit Offset :offset ")
+    @Query("Select * From contacts Order By id asc limit :limit Offset :offset ")
     fun getContacts(limit: Int, offset: Int): MutableList<Contact>
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)

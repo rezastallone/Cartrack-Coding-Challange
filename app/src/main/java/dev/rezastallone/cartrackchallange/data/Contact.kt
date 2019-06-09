@@ -1,11 +1,16 @@
 package dev.rezastallone.cartrackchallange.data
 
+import android.os.Parcel
+import android.os.Parcelable
 import androidx.room.Embedded
 import androidx.room.Entity
 import androidx.room.PrimaryKey
+import kotlinx.android.parcel.Parceler
+import kotlinx.android.parcel.Parcelize
 
+@Parcelize
 @Entity(tableName = "contacts")
-data class Contact(
+class Contact(
     @PrimaryKey
     val id: Int,
     val name: String,
@@ -17,4 +22,4 @@ data class Contact(
     val website: String,
     @Embedded(prefix = "company")
     val company: Company
-)
+) : Parcelable

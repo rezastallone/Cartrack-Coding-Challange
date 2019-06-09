@@ -262,4 +262,6 @@
         <item>Zambia</item>
         <item>Zimbabwe</item>
     </string-array>
+    <string name="title_contact_list">Contacts</string>
+    <string name="title_contact_detail">Contact Detail</string>
 </resources>

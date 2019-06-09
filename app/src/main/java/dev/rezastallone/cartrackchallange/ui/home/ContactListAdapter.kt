@@ -6,7 +6,7 @@ import androidx.paging.PagedListAdapter
 import dev.rezastallone.cartrackchallange.R
 import dev.rezastallone.cartrackchallange.data.Contact
 
-class ContactListAdapter : PagedListAdapter<Contact, ContactViewHolder>(ContactDiffUtil()) {
+class ContactListAdapter(val interaction: ContactListInteraction) : PagedListAdapter<Contact, ContactViewHolder>(ContactDiffUtil()) {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ContactViewHolder {
         return ContactViewHolder(
@@ -20,7 +20,7 @@ class ContactListAdapter : PagedListAdapter<Contact, ContactViewHolder>(ContactD
 
     override fun onBindViewHolder(holder: ContactViewHolder, position: Int) {
         val contact = getItem(position)
-        contact?.let { holder.bind(it) }
+        contact?.let { holder.bind(it, interaction) }
     }
 
 }

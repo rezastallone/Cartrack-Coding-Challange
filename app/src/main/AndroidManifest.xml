@@ -1,7 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
           package="dev.rezastallone.cartrackchallange">
-    <uses-permission android:name="android.permission.INTERNET" />
+
+    <uses-permission android:name="android.permission.INTERNET"/>
+
     <application
             android:name=".CarTrackApplication"
             android:allowBackup="true"
@@ -11,17 +13,32 @@
             android:supportsRtl="true"
             android:theme="@style/AppTheme">
         <activity
+                android:name=".ui.contact.ContactListActivity"
+                android:label="@string/title_contact_list"
+                android:theme="@style/AppTheme.NoActionBar">
+        </activity>
+        <activity
+                android:name=".ui.contact.ContactDetailActivity"
+                android:label="@string/title_contact_detail"
+                android:parentActivityName=".ui.contact.ContactListActivity"
+                android:theme="@style/AppTheme.NoActionBar">
+            <meta-data
+                    android:name="android.support.PARENT_ACTIVITY"
+                    android:value="dev.rezastallone.cartrackchallange.ui.contact.ContactListActivity"/>
+        </activity>
+        <activity
                 android:name=".ui.MainActivity"
-                android:windowSoftInputMode="adjustResize"
-        >
+                android:windowSoftInputMode="adjustResize">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN"/>
+
                 <category android:name="android.intent.category.LAUNCHER"/>
             </intent-filter>
         </activity>
 
-        <uses-library android:name="android.test.runner"
-                      android:required="false" />
+        <uses-library
+                android:name="android.test.runner"
+                android:required="false"/>
     </application>
 
 </manifest>
