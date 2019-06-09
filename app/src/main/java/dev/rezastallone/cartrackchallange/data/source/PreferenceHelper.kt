@@ -23,4 +23,17 @@ object PreferenceHelper {
         val sharedPref = getSharedPreference(context)
         return sharedPref.getString(key, defaultValue)
     }
+
+    fun putInt(key: String, valueToPut: Int, context: Context){
+        val sharedPref = getSharedPreference(context)
+        with (sharedPref.edit()) {
+            putInt(key, valueToPut)
+            commit()
+        }
+    }
+
+    fun getIntPreference(key: String, defaultValue: Int, context: Context): Int {
+        val sharedPref = getSharedPreference(context)
+        return sharedPref.getInt(key, defaultValue)
+    }
 }

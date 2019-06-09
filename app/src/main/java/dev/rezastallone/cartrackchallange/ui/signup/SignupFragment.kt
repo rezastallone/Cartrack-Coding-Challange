@@ -34,7 +34,9 @@ class SignupFragment : Fragment() {
     }
 
     private fun setupToolbar() {
-        (activity as AppCompatActivity).supportActionBar!!.title = getString(R.string.title_signup)
+        (activity as? AppCompatActivity)?.let {
+            it.supportActionBar!!.title = getString(R.string.title_signup)
+        }
     }
 
     private fun setupSignUpButton() {
@@ -120,7 +122,6 @@ class SignupFragment : Fragment() {
             edittext_password_confirm.error = getString(R.string.error_password_not_match)
             return false
         }
-
         return true
     }
 

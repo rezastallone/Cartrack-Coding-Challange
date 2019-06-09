@@ -7,7 +7,6 @@ import dev.rezastallone.cartrackchallange.data.source.local.datasource.UsersData
 import dev.rezastallone.cartrackchallange.util.EspressoIdlingResource
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
-import java.lang.Exception
 
 class DefaultUsersRepository(private val usersLocalDataSource: UsersDataSource) : UsersRepository{
 
@@ -18,7 +17,6 @@ class DefaultUsersRepository(private val usersLocalDataSource: UsersDataSource) 
                 val insertedID = usersLocalDataSource.insert(user)
                 if ( insertedID > 0 ){
                     user.id = insertedID
-
                     Result.Success(user)
                 } else {
 

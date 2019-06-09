@@ -7,11 +7,7 @@ import dev.rezastallone.cartrackchallange.data.Result
 import dev.rezastallone.cartrackchallange.data.Result.Loading
 import dev.rezastallone.cartrackchallange.data.Users
 import dev.rezastallone.cartrackchallange.data.source.UsersRepository
-import kotlinx.coroutines.CoroutineScope
-import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.SupervisorJob
 import kotlinx.coroutines.launch
-import kotlin.coroutines.CoroutineContext
 
 class SignupViewModel(private val usersRepository: UsersRepository) : ViewModel(){
 

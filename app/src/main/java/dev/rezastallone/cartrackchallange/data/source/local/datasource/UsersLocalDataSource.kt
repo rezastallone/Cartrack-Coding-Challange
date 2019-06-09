@@ -4,7 +4,6 @@ import dev.rezastallone.cartrackchallange.constant.ERROR_USERNAME_NOT_FOUND
 import dev.rezastallone.cartrackchallange.constant.ERROR_WRONG_PASSWORD
 import dev.rezastallone.cartrackchallange.data.Users
 import dev.rezastallone.cartrackchallange.data.source.local.AppDatabase
-import kotlin.Exception
 
 class UsersLocalDataSource(db: AppDatabase) : UsersDataSource {
     private val userDao = db.usersDao()
