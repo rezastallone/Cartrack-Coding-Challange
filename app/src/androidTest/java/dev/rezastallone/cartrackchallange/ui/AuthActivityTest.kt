@@ -9,10 +9,12 @@ import androidx.test.espresso.assertion.ViewAssertions.matches
 import androidx.test.espresso.matcher.ViewMatchers
 import androidx.test.ext.junit.runners.AndroidJUnit4
 import androidx.test.filters.LargeTest
+import androidx.test.platform.app.InstrumentationRegistry
 import dev.rezastallone.cartrackchallange.R
+import dev.rezastallone.cartrackchallange.constant.PREF_SIGNEDIN_USERNAME
+import dev.rezastallone.cartrackchallange.data.source.PreferenceHelper
 import dev.rezastallone.cartrackchallange.data.source.local.AppDatabase
 import dev.rezastallone.cartrackchallange.util.EspressoIdlingResource
-import org.hamcrest.CoreMatchers.not
 import org.junit.After
 import org.junit.Before
 import org.junit.Test
@@ -24,7 +26,7 @@ import org.koin.test.KoinTest
 @LargeTest
 class AuthActivityTest: KoinTest{
 
-    val db: AppDatabase by inject()
+    private val db: AppDatabase by inject()
 
     /**
      * Idling resources tell Espresso that the app is idle or busy. This is needed when operations
@@ -34,6 +36,12 @@ class AuthActivityTest: KoinTest{
     fun registerIdlingResource() {
         IdlingRegistry.getInstance().register(EspressoIdlingResource.countingIdlingResource)
         db.clearAllTables()
+        clearSigninSharedPreference()
+    }
+
+    private fun clearSigninSharedPreference() {
+        val targetContext = InstrumentationRegistry.getInstrumentation().targetContext
+        PreferenceHelper.putString(PREF_SIGNEDIN_USERNAME, "", targetContext)
     }
 
     /**

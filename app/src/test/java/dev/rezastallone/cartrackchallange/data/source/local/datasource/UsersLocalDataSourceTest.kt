@@ -6,7 +6,6 @@ import androidx.test.ext.junit.runners.AndroidJUnit4
 import com.google.common.truth.Truth
 import dev.rezastallone.cartrackchallange.constant.ERROR_USERNAME_NOT_FOUND
 import dev.rezastallone.cartrackchallange.constant.ERROR_WRONG_PASSWORD
-import dev.rezastallone.cartrackchallange.data.Result
 import dev.rezastallone.cartrackchallange.data.Users
 import dev.rezastallone.cartrackchallange.data.source.local.AppDatabase
 import kotlinx.coroutines.runBlocking
@@ -48,7 +47,7 @@ class UsersLocalDataSourceTest{
     @Test
     fun retrievesUserWithUnregisteredUsername_errorNotFound() = runBlocking {
         try {
-            localDataSource.getUserByUsernameAndPassword(userForTest.username, userForTest.password)
+            val userToCheck = localDataSource.getUserByUsernameAndPassword(userForTest.username, userForTest.password)
         }catch (e:Exception){
             Truth.assertThat(e.message).isEqualTo(ERROR_USERNAME_NOT_FOUND)
         }
@@ -58,7 +57,7 @@ class UsersLocalDataSourceTest{
     fun retrievesUserWithWrongPassword_errorWrongPassword() = runBlocking {
         localDataSource.insert(userForTest)
         try {
-            localDataSource.getUserByUsernameAndPassword(userForTest.username, "wrong password")
+            val userToCheck = localDataSource.getUserByUsernameAndPassword(userForTest.username, "wrong password")
         }catch (e:Exception){
             Truth.assertThat(e.message).isEqualTo(ERROR_WRONG_PASSWORD)
         }
