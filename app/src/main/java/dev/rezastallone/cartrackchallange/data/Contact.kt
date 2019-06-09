@@ -22,4 +22,8 @@ class Contact(
     val website: String,
     @Embedded(prefix = "company")
     val company: Company
-) : Parcelable
+) : Parcelable {
+    fun getFullAddress(): String {
+        return address.getFullAddress()
+    }
+}

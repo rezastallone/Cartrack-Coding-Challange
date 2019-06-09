@@ -12,4 +12,8 @@ data class Address (
     val zipcode: String,
     @Embedded
     val geo: Geo
-) : Parcelable
+) : Parcelable{
+    fun getFullAddress(): String {
+        return "$suite, $street, $city $zipcode"
+    }
+}

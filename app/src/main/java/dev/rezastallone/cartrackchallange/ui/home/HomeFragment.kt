@@ -1,6 +1,5 @@
 package dev.rezastallone.cartrackchallange.ui.home
 
-import android.content.Intent
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -16,7 +15,6 @@ import dev.rezastallone.cartrackchallange.R
 import dev.rezastallone.cartrackchallange.R.layout
 import dev.rezastallone.cartrackchallange.constant.EXTRA_CONTACT
 import dev.rezastallone.cartrackchallange.data.Contact
-import dev.rezastallone.cartrackchallange.ui.contact.ContactDetailActivity
 import dev.rezastallone.cartrackchallange.ui.contact.ContactDetailFragment
 import kotlinx.android.synthetic.main.contact_list.*
 import org.koin.android.viewmodel.ext.android.viewModel
@@ -66,23 +64,27 @@ class HomeFragment : Fragment() {
         contactAdapter = ContactListAdapter(
             object : ContactListInteraction {
                 override fun openDetail(contact: Contact) {
-                    if (twoPane) {
-                        val fragment = ContactDetailFragment().apply {
-                            arguments = Bundle().apply {
-                                putParcelable(EXTRA_CONTACT, contact)
-                            }
-                        }
-                        childFragmentManager
-                            .beginTransaction()
-                            .replace(R.id.contact_detail_container, fragment)
-                            .commit()
-                    } else {
-                        val action = HomeFragmentDirections.actionToContactDetail(contact)
-                        findNavController().navigate(action)
-                    }
+                    openContactDetail(contact)
                 }
             }
         )
+    }
+
+    private fun openContactDetail(contact: Contact) {
+        if (twoPane) {
+            val fragment = ContactDetailFragment().apply {
+                arguments = Bundle().apply {
+                    putParcelable(EXTRA_CONTACT, contact)
+                }
+            }
+            childFragmentManager
+                .beginTransaction()
+                .replace(R.id.contact_detail_container, fragment)
+                .commit()
+        } else {
+            val action = HomeFragmentDirections.actionToContactDetail(contact)
+            findNavController().navigate(action)
+        }
     }
 
     private fun setupContactList() {

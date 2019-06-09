@@ -1,0 +1,26 @@
+<ScrollView
+        xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:app="http://schemas.android.com/apk/res-auto"
+        android:layout_width="match_parent" android:layout_height="match_parent">
+    <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+        <include layout="@layout/content_contact_address"/>
+
+        <fragment xmlns:android="http://schemas.android.com/apk/res/android"
+                  xmlns:tools="http://schemas.android.com/tools"
+                  android:layout_width="match_parent"
+                  android:layout_height="@dimen/map_height"
+                  android:id="@+id/map"
+                  tools:context=".ui.MapsActivity"
+                  android:name="com.google.android.gms.maps.SupportMapFragment"
+                  app:layout_constraintTop_toBottomOf="@+id/cardview_address"
+                  app:layout_constraintStart_toStartOf="parent"
+                  app:layout_constraintEnd_toEndOf="parent"
+        />
+
+        <include layout="@layout/content_contact_information"/>
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</ScrollView>

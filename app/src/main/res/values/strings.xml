@@ -264,4 +264,16 @@
     </string-array>
     <string name="title_contact_list">Contacts</string>
     <string name="title_contact_detail">Contact Detail</string>
+    <string name="title_activity_maps">Map</string>
+    <string name="label_name">Name</string>
+    <string name="label_email">Email</string>
+    <string name="label_username">Username</string>
+    <string name="label_phone">Phone</string>
+    <string name="label_website">Website</string>
+    <string name="title_contact_information">Contact Information</string>
+    <string name="label_company_name">Name</string>
+    <string name="title_company">Company</string>
+    <string name="label_catchphase">Catchphrase</string>
+    <string name="label_bs">bs</string>
+    <string name="title_address">Address</string>
 </resources>

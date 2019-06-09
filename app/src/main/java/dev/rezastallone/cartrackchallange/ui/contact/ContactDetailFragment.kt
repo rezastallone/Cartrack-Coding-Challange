@@ -1,17 +1,23 @@
 package dev.rezastallone.cartrackchallange.ui.contact
 
 import android.os.Bundle
-import androidx.fragment.app.Fragment
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
+import androidx.fragment.app.Fragment
+import com.google.android.gms.maps.CameraUpdateFactory
+import com.google.android.gms.maps.GoogleMap
+import com.google.android.gms.maps.OnMapReadyCallback
+import com.google.android.gms.maps.SupportMapFragment
+import com.google.android.gms.maps.model.LatLng
+import com.google.android.gms.maps.model.MarkerOptions
 import dev.rezastallone.cartrackchallange.R
 import dev.rezastallone.cartrackchallange.constant.EXTRA_CONTACT
 import dev.rezastallone.cartrackchallange.data.Contact
-import dev.rezastallone.cartrackchallange.ui.contact.dummy.DummyContent
-import kotlinx.android.synthetic.main.activity_contact_detail.*
-import kotlinx.android.synthetic.main.contact_detail.view.*
+import kotlinx.android.synthetic.main.content_contact_address.*
+import kotlinx.android.synthetic.main.content_contact_information.*
 
 /**
  * A fragment representing a single Contact detail screen.
@@ -19,13 +25,17 @@ import kotlinx.android.synthetic.main.contact_detail.view.*
  * in two-pane mode (on tablets) or a [ContactDetailActivity]
  * on handsets.
  */
-class ContactDetailFragment : Fragment() {
+class ContactDetailFragment : Fragment(), OnMapReadyCallback {
 
+    private lateinit var googleMap: GoogleMap
     private lateinit var contact: Contact
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+        getContactExtra()
+    }
 
+    private fun getContactExtra() {
         arguments?.let {
             if (it.containsKey(EXTRA_CONTACT)) {
                 contact = it.getParcelable(EXTRA_CONTACT) as Contact
@@ -37,20 +47,53 @@ class ContactDetailFragment : Fragment() {
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        val rootView = inflater.inflate(R.layout.contact_detail, container, false)
-        return rootView
+        return inflater.inflate(R.layout.contact_detail_fragment, container, false)
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        Toast.makeText(context, contact.name, Toast.LENGTH_SHORT).show()
+        setupMap()
+        setupContactInfo()
+        setupContactAddress()
     }
 
-    companion object {
-        /**
-         * The fragment argument representing the item ID that this fragment
-         * represents.
-         */
-        const val ARG_ITEM_ID = "item_id"
+    private fun setupContactAddress() {
+        textview_address.text = contact.getFullAddress()
+    }
+
+    private fun setupContactInfo() {
+        contact.run {
+            textview_name.text = name
+            textview_username.text = username
+            textview_email.text = email
+            textview_phone.text = phone
+            textview_company_name.text = company.name
+            textview_company_catchphrase.text = company.catchPhrase
+            textview_company_bs.text = company.bs
+        }
+    }
+
+    private fun setupMap(){
+        val mapFragment = childFragmentManager
+            .findFragmentById(R.id.map) as SupportMapFragment
+        mapFragment.getMapAsync(this)
+    }
+
+    override fun onMapReady(map: GoogleMap?) {
+        googleMap = map!!
+        setupMapMarker()
+    }
+
+    private fun setupMapMarker() {
+        val lat = contact.address.geo.lat.toDouble()
+        val lng = contact.address.geo.lng.toDouble()
+        val contactPosition = LatLng(lat, lng)
+        val markerOption = MarkerOptions().apply {
+            position(contactPosition)
+            title(contact.getFullAddress())
+        }
+        googleMap.addMarker(markerOption)
+        googleMap.moveCamera(CameraUpdateFactory.newLatLng(contactPosition))
+        googleMap.animateCamera(CameraUpdateFactory.zoomTo(15f), 2000, null);
     }
 }

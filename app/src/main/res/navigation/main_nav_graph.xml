@@ -14,5 +14,5 @@
     </fragment>
     <fragment android:id="@+id/contactDetailFragment"
               android:name="dev.rezastallone.cartrackchallange.ui.contact.ContactDetailFragment"
-              android:label="contact_detail" tools:layout="@layout/contact_detail"/>
+              android:label="contact_detail" tools:layout="@layout/contact_detail_fragment"/>
 </navigation>
